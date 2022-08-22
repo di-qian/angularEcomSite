@@ -1,0 +1,3 @@
+<div *ngFor="let product of products | async">
+  <img src="{{ product.imgUrl }}" /><br />{{ product.name }}
+</div>
