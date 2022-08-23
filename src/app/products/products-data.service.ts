@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ProductsDataService {
-  constructor(private $http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   getAllProducts() {
-    return this.$http.get('products.json');
+    return this.http.get('products.json');
   }
 }
