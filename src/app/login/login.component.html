@@ -32,8 +32,10 @@
         </tr>
       </table></form></mat-card-content
   ><mat-card-actions
-    ><button mat-raised-button color="primary" (click)="login()">
-      Login
-    </button></mat-card-actions
+    ><button mat-raised-button color="primary" (click)="login()">Login</button
+    ><span
+      >If you don't have an account?
+      <a [routerLink]="['/register']">register</a> here.</span
+    ></mat-card-actions
   ></mat-card
 >
