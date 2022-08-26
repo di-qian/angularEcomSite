@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of, Subject } from 'rxjs';
+import { catchError, of, Subject, switchMap, throwError } from 'rxjs';
 import { User } from './user';
 
 @Injectable({
@@ -7,13 +8,32 @@ import { User } from './user';
 })
 export class AuthService {
   private user$ = new Subject<User>();
+  private apiUrl = '/api/auth/';
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
   login(email: string, password: string) {
     const loginCredentials = { email, password };
     console.log('login credentials', loginCredentials);
-    return of({ email, password });
+
+    return this.httpClient
+      .post<User>(`${this.apiUrl}login`, loginCredentials)
+      .pipe(
+        switchMap((foundUser) => {
+          this.setUser(foundUser);
+          console.log(`user found`, foundUser);
+          return of(foundUser);
+        }),
+        catchError((e) => {
+          console.log(
+            `Your login detail could not be verified. Please try again`,
+            e
+          );
+          return throwError(
+            `Your login detail could not be verified. Please try again`
+          );
+        })
+      );
   }
 
   logout() {
@@ -27,11 +47,17 @@ export class AuthService {
   }
 
   register(user: any) {
-    //make an api call to save user in db
-    //update the user subject
-    this.user$.next(user);
-    console.log('registered user successfually', user);
-    return of(user);
+    return this.httpClient.post(`${this.apiUrl}register`, user).pipe(
+      switchMap((savedUser) => {
+        this.setUser(savedUser);
+        console.log(`user registered successfully`, savedUser);
+        return of(savedUser);
+      }),
+      catchError((e) => {
+        console.log(`server error occured`, e);
+        return throwError(`Registeration failed please contact to admin`);
+      })
+    );
   }
 
   private setUser(user: any) {

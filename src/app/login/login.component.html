@@ -30,7 +30,13 @@
             /></mat-form-field>
           </td>
         </tr>
-      </table></form></mat-card-content
+        <tr>
+          <td>
+            <mat-error *ngIf="error">{{ error }}</mat-error>
+          </td>
+        </tr>
+      </table>
+    </form></mat-card-content
   ><mat-card-actions
     ><button mat-raised-button color="primary" (click)="login()">Login</button
     ><span

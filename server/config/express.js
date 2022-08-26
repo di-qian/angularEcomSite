@@ -32,7 +32,7 @@ app.use(helmet());
 app.use(cors());
 
 //api router localhost:4050/api
-app.use("/api/", routes);
+app.use("/api", routes);
 
 //serve the index.html
 app.get("*", (req, res) => {
