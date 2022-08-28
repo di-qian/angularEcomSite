@@ -5,7 +5,7 @@ const config = require("../config/config");
 
 const mongoUri = config.mongo.uri;
 
-mongoose.connect(mongoUri, { keepAlive: 1, useNewUrlParser: true });
+mongoose.connect(mongoUri, { keepAlive: true, useNewUrlParser: true });
 
 const db = mongoose.connection;
 
