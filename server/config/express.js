@@ -7,6 +7,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const routes = require("../routes");
 const passport = require("passport");
+const compress = require("compression");
 
 //get app
 const app = express();
@@ -34,6 +35,9 @@ app.use(cors());
 
 //authenticate
 app.use(passport.initialize());
+
+// compression
+app.use(compress());
 
 //api router localhost:4050/api
 app.use("/api", routes);

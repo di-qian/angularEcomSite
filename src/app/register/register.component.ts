@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    if (this.userForm.valid) return;
+    if (!this.userForm.valid) return;
 
     const user = this.userForm.getRawValue();
     this.authService

@@ -14,7 +14,7 @@ db.once("open", () => {
 });
 
 db.on("error", () => {
-  throw new Error(`unable to connect to the database: ${mongoUrl}`);
+  throw new Error(`unable to connect to the database: ${mongoUri}`);
 });
 
 if (config.mongo.isDebug) {
